@@ -2,7 +2,9 @@ package com.example.postgretraining;
 
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class SkaterController {
         return skaterRepository.findAll();
     }
 
-    @PostMapping("/create")
+    @PostMapping
     String SaveSkater(@RequestBody Skater skater) {
         skaterRepository.save(skater);
 
@@ -29,8 +31,20 @@ public class SkaterController {
     }
 
     @GetMapping("/{id}")
-        Skater skater (@PathVariable long id){
-            return skaterRepository.findById(id);
+        Skater skater (@PathVariable long id) {
+        Skater temp = skaterRepository.findById(id);
+
+        if (temp != null){
+            return temp;
+        }
+
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        @DeleteMapping("/{id}")
+            String deleteSkater (@PathVariable long id){
+            skaterRepository.deleteById(id);
+            return "This skater has just been deleted, ID: " + id;
         }
 
 }

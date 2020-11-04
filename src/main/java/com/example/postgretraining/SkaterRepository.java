@@ -11,5 +11,6 @@ import java.util.List;
         List<Skater> findByName(String Name);
         List<Skater> findAll();
         Skater findById(long id);
+        Long deleteById(long id);
     }
 
