@@ -2,6 +2,7 @@ package com.example.postgretraining;
 
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,7 +21,8 @@ public class SkaterController {
     @ResponseBody
     List<Skater> getAllSkaters() {
 
-        return skaterRepository.findAll();
+            return skaterRepository.findAll();
+
     }
 
     @PostMapping
