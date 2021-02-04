@@ -17,11 +17,22 @@ public class ApiTest {
     private MockMvc mvc;
 
     @Test
-    void test() throws Exception {
+    void testAccessToSkatersWithoutToken() throws Exception {
         mvc.perform(get("/skaters"))
                 .andExpect(status().isUnauthorized());
-        mvc.perform(get("/hello"))
-                .andExpect(status().isOk());
+
 
     }
+    @Test
+    void testAccessToHello() throws Exception {
+        mvc.perform(get("/hello"))
+                .andExpect(status().isOk());
+    }
+    @Test
+    void testSkatersWithToken() throws Exception {
+        String token = "Bearer mixon69";
+        mvc.perform(get("/skaters").header("Authorization" , token))
+        .andExpect(status().isOk());
+    }
+
 }
